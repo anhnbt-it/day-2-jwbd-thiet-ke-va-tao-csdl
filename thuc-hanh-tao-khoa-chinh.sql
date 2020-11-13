@@ -63,3 +63,21 @@ ALTER TABLE `role_user`
 	ADD CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
     ADD CONSTRAINT `role_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
     
+-- 
+-- Cấu trúc cho bảng `posts`
+--
+CREATE TABLE `posts` (
+	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `user_id` INT UNSIGNED NOT NULL,
+    `title` VARCHAR(255) UNIQUE,
+    `slug` VARCHAR(255) UNIQUE,
+    `description` MEDIUMTEXT NOT NULL,
+    `content` TEXT NOT NULL,
+    `thumbnail` VARCHAR(255) NOT NULL,
+    `views` INT UNSIGNED DEFAULT '0',
+    `status` ENUM('published', 'draft', 'pending') DEFAULT 'published',
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+);
